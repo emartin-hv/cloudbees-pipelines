@@ -1,0 +1,97 @@
+# Defaults for properties available during build execution
+# These can be overriden in pipeline build data file or in the pipeline run parameters.
+#
+# Property priority resolution order:
+# 1. Jenkins Environment
+# 2. Build Properties Defaults (this file)
+# 3. Build Data File
+# 4. Pipeline Run Parameters
+
+JENKINS_ANT_FOR_BUILDS: ant-auto
+JENKINS_JDK_FOR_BUILDS: Java8_auto
+JENKINS_MAVEN_FOR_BUILDS: maven3-auto
+JENKINS_GRADLE_FOR_BUILDS: gradle-auto
+
+ANT_DEFAULT_COMMAND_OPTIONS: clean-all resolve dist
+ANT_TEST_TARGETS: test jacoco
+ANT_DEFAULT_DIRECTIVES: clean-all resolve publish
+MAVEN_DEFAULT_COMMAND_OPTIONS: -B -e
+MAVEN_OPTS: -Xms512m
+MAVEN_RESOLVE_REPO_URL: http://nexus.pentaho.org/content/groups/omni
+MAVEN_TEST_OPTS: -DsurefireArgLine=-Xmx1g
+MAVEN_DEFAULT_DIRECTIVES: clean install
+GRADLE_DEFAULT_DIRECTIVES: --info --console=plain
+GRADLE_DEFAULT_COMMAND_OPTIONS: clean build
+GRADLE_TEST_TARGETS: test
+
+NOOP: false
+BUILD_RETRIES: 1
+BUILD_TIMEOUT: 360
+PARALLEL_CHECKOUT_CHUNKSIZE: 40
+PARALLEL_UNIT_TESTS_CHUNKSIZE: 10
+PUSH_CHANGES: false
+RUN_BUILDS: true
+RUN_CHECKOUTS: true
+RUN_UNIT_TESTS: true
+ARCHIVE_ARTIFACTS: true
+ARCHIVE_ARTIFACTS_PATTERN: '**/dist/*.gz, **/dist/*.zip, **/target/*.gz, **/target/*.zip, **/build/**/*.gz, **/build/**/*.zip, **/build/*.zip'
+INSTALLER_ARTIFACTS_PATTERN: 'bi-suite/target/pentaho-business-analytics-*.*, upgrade-utility/target/pentaho-upgrade-utility-*.zip'
+USE_DISTRIBUTED_SOURCE_CACHING: false
+ARCHIVE_TESTS_PATTERN: '**/bin/**/TEST*.xml, **/target/**/TEST*.xml, **/build/**/*Test.xml'
+
+#BUILD_DATA_ROOT_PATH: ${WORKSPACE}/resources/builders
+#LIB_CACHE_ROOT_PATH: ${WORKSPACE}/caches
+#BUILDS_ROOT_PATH: ${WORKSPACE}/builds
+
+SCM_HOST_ROOT: https://github.com
+PENTAHO_SCM_ROOT: https://github.com/pentaho
+WEBDETAILS_SCM_ROOT: https://github.com/webdetails
+DEFAULT_BRANCH: master
+
+CHECKOUT_CREDENTIALS_ID: github-buildguy
+CHECKOUT_DEPTH: 20
+CHECKOUT_TIMESTAMP: CURRENT_TIME
+CHECKOUT_TIMEOUT_MINUTES: 10
+CHECKOUT_SLEEP_AVERAGE_SECONDS: 0
+
+CLEAN_ALL_CACHES: false
+CLEAN_BUILD_WORKSPACE: false
+CLEAN_CACHES_REGEX: .*-SNAPSHOT.*
+CLEAN_SCM_WORKSPACES: false
+
+# Version based control properties
+UPDATE_VERSIONS: false
+RELEASE_VERSION: 9.0.0.0
+SUITE_RELEASE_VERSION: 9.0.0.0
+RELEASE_MODE: false
+ADD_BUILD_ID_VERSION_TAIL: true
+
+# Options: SUFFIX, NONE, PREFIX, FULL
+TAG_NAME_TYPE: NONE
+TAG_NAME: -RC
+
+# Installer defaults
+IBUILDER_RESOURCES_ROOT_PATH: /build2/resources/ibuilder-pentaho-8.0-resources
+INSTALL_BUILDER_ROOT_DIR: /build2/resources/installbuilder-15.1.0
+
+# Defaults for Job properties
+JOB_ITEM_DEFAULTS:
+  scmBranch: ${DEFAULT_BRANCH}
+  buildFramework: MAVEN
+  buildFile:
+  root:
+  directives: ${MAVEN_DEFAULT_DIRECTIVES}
+  testable: true
+  testsArchivePattern: ${ARCHIVE_TESTS_PATTERN}
+  execType: FORCE
+  archivable: true
+  artifactsArchivePattern: ${ARCHIVE_ARTIFACTS_PATTERN}
+
+# Build failover settings
+IGNORE_PIPELINE_FAILURE: false
+
+# Slack Integration
+SLACK_INTEGRATION: false
+SLACK_CHANNEL: 'slack-channel-name'
+SLACK_TEAM_DOMAIN: 'hitachivantara-eng'
+SLACK_CREDENTIALS_ID: 'slack-token'
