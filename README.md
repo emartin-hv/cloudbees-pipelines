@@ -1,4 +1,4 @@
-# jenkins-pipelines
+# cloudbees-pipelines
 Jenkins Pipeline Build Files and YAML Build Data Files
 
 ### These piplelines are dependent on the installation of the [Jenkins Shared Libraries](https://github.com/emartin-pentaho/cloudbees-shared-libraries) in your Jenkins configuration.
