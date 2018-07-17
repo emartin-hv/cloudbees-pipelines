@@ -1,0 +1,59 @@
+# optional (unless used in your yaml data below) - can be overridden by upstream properties using the same name
+buildProperties:
+        # global build control defaults -- see others you can override in resources/config/buildProperties.yaml
+        # These are understood by the shared pipeline libraries:
+        BUILD_PLAN_ID                  : Kettle Downstreams Build
+
+        MAVEN_DEFAULT_COMMAND_OPTIONS  : -B -e -q
+        IGNORE_PIPELINE_FAILURE        : true
+        ARCHIVE_ARTIFACTS_PATTERN      : '**/target/*.gz, **/target/*.zip'
+
+jobGroups:
+  # Always required
+
+  kettle:
+
+     - jobID           :  pdi-engine-core
+       scmUrl          :  ${PENTAHO_SCM_ROOT}/pentaho-kettle.git
+       scmBranch       :  ${DEFAULT_BRANCH}
+       directives      :  += -DskipDefault -P base,plugins,lowdeps
+       versionProperty :  pdi.version
+
+  downstream-pdi-plugins:
+
+     - jobID           :  pdi-dataservice-server-plugin
+       scmUrl          :  ${PENTAHO_SCM_ROOT}/pdi-dataservice-server-plugin.git
+       scmBranch       :  ${DEFAULT_BRANCH}
+       versionProperty :  pdi-dataservice-plugin.version
+       archivable      :  false
+
+     - jobID           :  pdi-platform-plugin
+       scmUrl          :  ${PENTAHO_SCM_ROOT}/pdi-platform-plugin.git
+       scmBranch       :  ${DEFAULT_BRANCH}
+       versionProperty :  pentaho-pdi-plugin.version
+       testable        :  false
+
+     - jobID           :  pdi-platform-utils-plugin
+       scmUrl          :  ${PENTAHO_SCM_ROOT}/pdi-platform-utils-plugin.git
+       scmBranch       :  ${DEFAULT_BRANCH}
+       versionProperty :  pdi-platform-utils-plugin.version
+
+     - jobID           :  pdi-data-refinery-plugin
+       scmUrl          :  ${PENTAHO_SCM_ROOT}/pentaho-data-refinery.git
+       scmBranch       :  ${DEFAULT_BRANCH}
+       versionProperty :  pdi-data-refinery-plugin.version
+       archivable      :  false
+
+     - jobID           :  pdi-sdk-plugins
+       scmUrl          :  ${PENTAHO_SCM_ROOT}/pdi-sdk-plugins.git
+       scmBranch       :  ${DEFAULT_BRANCH}
+       versionProperty :  pdi-sdk-plugins.version
+
+  assembly:
+
+     - jobID           :  pdi-client-assembly
+       scmUrl          :  ${PENTAHO_SCM_ROOT}/pentaho-kettle.git
+       scmBranch       :  ${DEFAULT_BRANCH}
+       directives      :  += -DskipDefault -P assemblies
+       versionProperty :  pdi.version
+       testable        :  false
