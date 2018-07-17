@@ -48,3 +48,12 @@ jobGroups:
        scmUrl          :  ${PENTAHO_SCM_ROOT}/pdi-sdk-plugins.git
        scmBranch       :  ${DEFAULT_BRANCH}
        versionProperty :  pdi-sdk-plugins.version
+
+  assembly:
+
+     - jobID           :  pdi-client-assembly
+       scmUrl          :  ${PENTAHO_SCM_ROOT}/pentaho-kettle.git
+       scmBranch       :  ${DEFAULT_BRANCH}
+       directives      :  += -DskipDefault -P assemblies
+       versionProperty :  pdi.version
+       testable        :  false
