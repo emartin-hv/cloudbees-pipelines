@@ -18,6 +18,7 @@ jobGroups:
        scmBranch       :  ${DEFAULT_BRANCH}
        directives      :  += -DskipDefault -P base,plugins,lowdeps
        versionProperty :  pdi.version
+       testable        :  false
 
   downstream-pdi-plugins:
 
