@@ -19,6 +19,7 @@ jobGroups:
        directives      :  += -DskipDefault -P base,plugins,lowdeps
        versionProperty :  pdi.version
        testable        :  false
+       archivable      :  false
 
   downstream-pdi-plugins:
 
